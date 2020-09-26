@@ -13,15 +13,19 @@ public class Contact {
     @Column(unique = true)
     private String email;
 
-//    public List<Place> getPlaceList() {
-//        return placeList;
-//    }
-//
-//    public void setPlaceList(List<Place> placeList) {
-//        this.placeList = placeList;
-//    }
-//    @ManyToMany(targetEntity = Place.class, mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Place> placeList;
+    public List<Place> getPlaceList() {
+        return places;
+    }
+
+    public void setPlaceList(List<Place> placeList) {
+        this.places = placeList;
+    }
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+            name = "places",
+            joinColumns = @JoinColumn(name = "contact_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private List<Place> places;
 
     public String getEmail() {
         return email;

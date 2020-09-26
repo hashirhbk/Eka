@@ -1,9 +1,7 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Place {
@@ -11,6 +9,17 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
+
+    @ManyToMany(mappedBy = "places")
+    Set<Contact> contacts;
+
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
 
     public Place() {
     }
