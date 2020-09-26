@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MyRESTController {
 
 	@Autowired
 	ContactRepository repository;
+
+	@Autowired
+	PlaceRepository pRepository;
 
 	@GetMapping("/contacts")
 	public Iterable<Contact> getContacts() {
@@ -27,10 +31,15 @@ public class MyRESTController {
 		repository.deleteByEmail(email);
 	}
 
-//	@GetMapping("/getallcontacts/{placename}")
-//	public List<Contact> getAllContacts(@PathVariable("placename") String placename){
-//		//return repository.findAllByPlaceName(placename);
-//
-//	}
+	@GetMapping("/getallcontacts/{placename}")
+	public List<Contact> getAllContacts(@PathVariable("placename") String placename){
+		Optional<Place> place = pRepository.findAllByNameIs(placename);
+		if(place.isPresent()){
+			int id = place.get().getId();
+			return repository.findAllByPlaces(place.get());
+		}
+		return null;
+
+	}
 
 }

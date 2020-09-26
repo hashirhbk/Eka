@@ -10,7 +10,7 @@ public class Place {
     int id;
     String name;
 
-    @ManyToMany(mappedBy = "places")
+    @ManyToMany(mappedBy = "name")
     Set<Contact> contacts;
 
     public Set<Contact> getContacts() {
